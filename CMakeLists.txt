@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Core OpenGL LinguistTools REQUIRED)
+find_package(Qt5 COMPONENTS Core Widgets OpenGL LinguistTools REQUIRED)
 
 set(TS_FILES matthew_en_001.ts)
 
