@@ -2,7 +2,7 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="matthew_en_001">
 <context>
-    <name>title</name>
+    <name>window_title</name>
     <message>
         <source>Matthew - Material Viewer</source>
         <translation type="unfinished"></translation>
