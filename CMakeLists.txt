@@ -16,7 +16,9 @@ find_package(Qt5 COMPONENTS Widgets OpenGL LinguistTools REQUIRED)
 set(TS_FILES matthew_en_001.ts)
 
 add_executable(matthew
-  main.cpp
+  Main.cc
+  RenderWidget.cc
+  RenderWidget.h
   ${TS_FILES}
 )
 target_link_libraries(matthew Qt5::Widgets)

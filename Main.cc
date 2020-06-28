@@ -1,6 +1,8 @@
 #include <QApplication>
 #include <QtWidgets/QWidget>
 
+#include "RenderWidget.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -11,5 +13,7 @@ int main(int argc, char *argv[])
     window.setWindowTitle(
       QApplication::translate("window_title", "Matthew - Material Viewer"));
 
+    RenderWidget renderWidget{&window};
+    renderWidget.show();
     return a.exec();
 }
