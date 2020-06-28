@@ -1,4 +1,4 @@
-cmake_minimum_required(V1ERSION 3.5)
+cmake_minimum_required(VERSION 3.5)
 
 project(matthew LANGUAGES CXX)
 
@@ -11,7 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Core LinguistTools REQUIRED)
+find_package(Qt5 COMPONENTS Core OpenGL LinguistTools REQUIRED)
 
 set(TS_FILES matthew_en_001.ts)
 
