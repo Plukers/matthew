@@ -1,6 +1,10 @@
 #include "RenderWidget.h"
 
+#include <QSurfaceFormat>
+
+// *****************************************************************************
 RenderWidget::RenderWidget(QWidget *parent) : QOpenGLWidget(parent)
+// *****************************************************************************
 {
     QSurfaceFormat format;
     format.setDepthBufferSize(24);
@@ -8,21 +12,26 @@ RenderWidget::RenderWidget(QWidget *parent) : QOpenGLWidget(parent)
     format.setVersion(3, 2);
     format.setProfile(QSurfaceFormat::CoreProfile);
     setFormat(format); // must be called before the widget or its parent window gets shown
-
-
 }
 
-
-void RenderWidget::initializeGL(){
+// *****************************************************************************
+void RenderWidget::initializeGL()
+// *****************************************************************************
+{
     initializeOpenGLFunctions();
     glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 }
 
-void RenderWidget::resizeGL(int w, int h){
-
+// *****************************************************************************
+void RenderWidget::resizeGL(int w, int h)
+// *****************************************************************************
+{
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void RenderWidget::paintGL(){
-
+// *****************************************************************************
+void RenderWidget::paintGL()
+// *****************************************************************************
+{
     glClear(GL_COLOR_BUFFER_BIT);
 }

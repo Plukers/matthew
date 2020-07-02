@@ -9,7 +9,7 @@ class RenderWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
 public:
-    RenderWidget(QWidget *parent);
+    RenderWidget(QWidget *parent = nullptr);
 
 protected:
     void initializeGL() override;
