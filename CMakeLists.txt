@@ -11,6 +11,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+file(GLOB ASSETS
+  "assets/*"
+)
+file(COPY ${ASSETS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/assets)
+
 find_package(Qt5 COMPONENTS Widgets OpenGL LinguistTools REQUIRED)
 
 set(TS_FILES matthew_en_001.ts)
