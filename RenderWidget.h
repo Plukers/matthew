@@ -4,6 +4,10 @@
 #include <QOpenGLWidget>
 #include <QWidget>
 #include <QOpenGLFunctions>
+#include <QOpenGLShader>
+#include <QOpenGLShaderProgram>
+#include <QOpenGLVertexArrayObject>
+#include <QOpenGLBuffer>
 
 class RenderWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
@@ -15,6 +19,22 @@ protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;
+
+private:
+	QOpenGLShader simpleVertex;
+	QOpenGLShader simpleFragment;
+	QOpenGLShaderProgram simpleProgram;
+
+	GLfloat vertices[9] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.0f,  0.5f, 0.0f
+	};
+
+	QOpenGLVertexArrayObject triangleVAO;
+	QOpenGLBuffer triangleVBO;
+
+
 };
 
 #endif // RENDERWIDGET_H
