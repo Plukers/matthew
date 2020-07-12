@@ -9,6 +9,8 @@
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLBuffer>
 
+#include "Programhandler.h"
+
 class RenderWidget : public QOpenGLWidget, protected QOpenGLFunctions
 {
     Q_OBJECT
@@ -25,10 +27,12 @@ private:
 	QOpenGLShader simpleFragment;
 	QOpenGLShaderProgram simpleProgram;
 
+	ProgramHandler programHandler;
+
 	GLfloat vertices[9] = {
-		-0.5f, -0.5f, 0.0f,
-		 0.5f, -0.5f, 0.0f,
-		 0.0f,  0.5f, 0.0f
+		-0.8f, -0.8f, 0.0f,
+		 0.8f, -0.8f, 0.0f,
+		 0.0f,  0.8f, 0.0f
 	};
 
 	QOpenGLVertexArrayObject triangleVAO;

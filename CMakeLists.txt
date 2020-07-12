@@ -22,6 +22,8 @@ add_executable(matthew
   Main.cc
   RenderWidget.cc
   RenderWidget.h
+  Programhandler.cc
+  Programhandler.h
   ${TS_FILES}
 )
 target_link_libraries(matthew Qt5::Widgets)
