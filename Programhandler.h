@@ -9,16 +9,22 @@
 
 class ProgramHandler
 {
-public:
-	static int initializePrograms();
-	static std::shared_ptr<QOpenGLShaderProgram> getProgram(QString programName);
 
+public:
+	enum Programs{
+		simpleProgram,
+		colorProgram
+	};
+
+	static int initializePrograms();
+	static std::shared_ptr<QOpenGLShaderProgram> getProgram(Programs programName);
+	~ProgramHandler();
 
 private:
 	ProgramHandler(){};
-	static int addProgram(QString programName, QString vertexPath, QString fragmentPath);
-	static int addProgram(QString programName, QString computePath);
-	static int addProgram(QString programName, QString vertexPath, QString fragmentPath,
+	static int addProgram(Programs programName, QString vertexPath, QString fragmentPath);
+	static int addProgram(Programs programName, QString computePath);
+	static int addProgram(Programs programName, QString vertexPath, QString fragmentPath,
 				   QString tesselationEvaluationPath, QString tesselationControlPath,
 				   QString geometryPath);
 

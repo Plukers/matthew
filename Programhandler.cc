@@ -1,27 +1,52 @@
 #include "Programhandler.h"
 
 static std::map<QString, std::unique_ptr<QOpenGLShader>> shaders;
-static std::map<QString, std::shared_ptr<QOpenGLShaderProgram>> programs;
+static std::map<int, std::shared_ptr<QOpenGLShaderProgram>> programs;
+static bool initialized = false;
+
+enum CompileError {
+	noError = 0,
+	vertexError,
+	fragmentError,
+	tesselationComputeError,
+	tesselationEvalError,
+	geometryError,
+	computeError
+};
+
 
 // *****************************************************************************
 int ProgramHandler::initializePrograms()
 // *****************************************************************************
 {
-	int err=0;
-	// Insert programs here!
-	err += ProgramHandler::addProgram("simpleProgram", "assets/shader/simple.vs", "assets/shader/simple.fs");
-	err += ProgramHandler::addProgram("colorProgram", "assets/shaders/color.vs", "assets/shaders/color.fs");
+	if(initialized){
+		return 0;
+	}
 
-	if(err == 0){
+	int err = noError;
+	// Insert programs here! And make enum in header!
+	err += ProgramHandler::addProgram(simpleProgram, "assets/shader/simple.vs", "assets/shader/simple.fs");
+	err += ProgramHandler::addProgram(colorProgram, "assets/shaders/color.vs", "assets/shaders/color.fs");
+
+	if(err == noError){
 		qDebug() << "shaders compiled successfully!";
 	}
 
+	initialized = true;
 	return err;
 }
 
+// *****************************************************************************
+ProgramHandler::~ProgramHandler()
+// *****************************************************************************
+{
+	// delete programs first
+	programs.clear();
+	shaders.clear();
+}
 
 // *****************************************************************************
-std::shared_ptr<QOpenGLShaderProgram> ProgramHandler::getProgram(QString programName)
+std::shared_ptr<QOpenGLShaderProgram> ProgramHandler::getProgram(Programs programName)
 // *****************************************************************************
 {
 	auto program = programs[programName];
@@ -34,12 +59,13 @@ std::shared_ptr<QOpenGLShaderProgram> ProgramHandler::getProgram(QString program
 
 }
 
+
 // *****************************************************************************
-int ProgramHandler::addProgram(QString programName, QString vertexPath, QString fragmentPath)
+int ProgramHandler::addProgram(Programs programName, QString vertexPath, QString fragmentPath)
 // *****************************************************************************
 {
 
-	// use shared pointer for program because when later binded it must be returned
+	// use shared pointer for program because when later called it must be returned
 	auto program = std::make_shared<QOpenGLShaderProgram>();
 
 
@@ -50,7 +76,7 @@ int ProgramHandler::addProgram(QString programName, QString vertexPath, QString 
 		if(!vs->compileSourceFile(vertexPath)){
 			qDebug() << "vertex shader failed to compile!";
 			qDebug() << vs->log();
-			return 1;
+			return vertexError;
 		}
 		program->addShader(vs.get());
 		shaders[vertexPath] = std::move(vs);
@@ -63,7 +89,7 @@ int ProgramHandler::addProgram(QString programName, QString vertexPath, QString 
 		if(!fs->compileSourceFile(fragmentPath)){
 			qDebug() << "fragment shader failed to compile!";
 			qDebug() << fs->log();
-			return 2;
+			return fragmentError;
 		}
 		program->addShader(fs.get());
 		shaders[fragmentPath] = std::move(fs);

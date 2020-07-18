@@ -27,7 +27,7 @@ void RenderWidget::initializeGL()
 
 
 	ProgramHandler::initializePrograms();
-	auto colorProgram = ProgramHandler::getProgram("colorProgram");
+	auto colorProgram = ProgramHandler::getProgram(ProgramHandler::colorProgram);
 
 	colorProgram->bind();
 
