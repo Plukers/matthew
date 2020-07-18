@@ -1,11 +1,9 @@
 #ifndef PROGRAMHANDLERSTATIC_H
 #define PROGRAMHANDLERSTATIC_H
 
-#include <QObject>
 #include <QString>
 #include <QOpenGLShader>
 #include <QOpenGLShaderProgram>
-#include <unordered_map>
 
 class ProgramHandler
 {
@@ -27,6 +25,7 @@ private:
 	static int addProgram(Programs programName, QString vertexPath, QString fragmentPath,
 				   QString tesselationEvaluationPath, QString tesselationControlPath,
 				   QString geometryPath);
+	static int addShader(std::shared_ptr<QOpenGLShaderProgram> program, QString shaderPath, QOpenGLShader::ShaderTypeBit shaderType);
 
 
 
