@@ -27,8 +27,6 @@ private:
 	QOpenGLShader simpleFragment;
 	QOpenGLShaderProgram simpleProgram;
 
-	ProgramHandler programHandler;
-
 	GLfloat vertices[9] = {
 		-0.8f, -0.8f, 0.0f,
 		 0.8f, -0.8f, 0.0f,

@@ -1,11 +1,12 @@
 #include "RenderWidget.h"
+#include "Programhandler.h"
 
 #include <QSurfaceFormat>
 #include <iostream>
 // *****************************************************************************
 RenderWidget::RenderWidget(QWidget *parent) : QOpenGLWidget(parent),
 	simpleVertex{QOpenGLShader::Vertex}, simpleFragment{QOpenGLShader::Fragment},
-	simpleProgram{}, triangleVAO{}, triangleVBO{}, programHandler(ProgramHandler{})
+	simpleProgram{}, triangleVAO{}, triangleVBO{}
 // *****************************************************************************
 {
     QSurfaceFormat format;
@@ -23,10 +24,11 @@ void RenderWidget::initializeGL()
 // *****************************************************************************
 {
     initializeOpenGLFunctions();
-	programHandler.initializePrograms();
 
 
-	auto colorProgram = programHandler.bindProgram("colorProgram");
+	ProgramHandler::initializePrograms();
+	auto colorProgram = ProgramHandler::getProgram("colorProgram");
+
 	colorProgram->bind();
 
 	triangleVAO.create();

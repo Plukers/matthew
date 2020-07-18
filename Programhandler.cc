@@ -1,24 +1,7 @@
 #include "Programhandler.h"
-#include <iostream>
-#include <iterator>
 
-// *****************************************************************************
-ProgramHandler::ProgramHandler()
-// *****************************************************************************
-{
-
-}
-
-// *****************************************************************************
-ProgramHandler::~ProgramHandler()
-// *****************************************************************************
-{
-	// destroy programs before shaders because programs have pointers to shaders
-	programs.clear();
-	shaders.clear();
-
-
-}
+static std::map<QString, std::unique_ptr<QOpenGLShader>> shaders;
+static std::map<QString, std::shared_ptr<QOpenGLShaderProgram>> programs;
 
 // *****************************************************************************
 int ProgramHandler::initializePrograms()
@@ -26,23 +9,24 @@ int ProgramHandler::initializePrograms()
 {
 	int err=0;
 	// Insert programs here!
-	// err = ProgramHandler::addProgram("simpleProgram", "shader/simple.vs", "shader/simple.fs");
+	err += ProgramHandler::addProgram("simpleProgram", "assets/shader/simple.vs", "assets/shader/simple.fs");
 	err += ProgramHandler::addProgram("colorProgram", "assets/shaders/color.vs", "assets/shaders/color.fs");
 
 	if(err == 0){
-		std::cout << "shaders compiled successfully!" << std::endl;
+		qDebug() << "shaders compiled successfully!";
 	}
 
 	return err;
 }
 
+
 // *****************************************************************************
-std::shared_ptr<QOpenGLShaderProgram> ProgramHandler::bindProgram(QString programName)
+std::shared_ptr<QOpenGLShaderProgram> ProgramHandler::getProgram(QString programName)
 // *****************************************************************************
 {
 	auto program = programs[programName];
 	if(program == 0){
-		std::cout << "program not found!" << std::endl;
+		qDebug() << "program not found!";
 		return nullptr;
 	}
 
@@ -89,3 +73,4 @@ int ProgramHandler::addProgram(QString programName, QString vertexPath, QString 
 	programs[programName] = program;
 	return 0;
 }
+
